@@ -37,7 +37,7 @@ const DEFAULT_BLOCK_CLAIM_LIMIT:i32 = 250;
 pub fn check_consensus(
     block: &Block,
     service: &mut Poet2Service, validator_id: &Vec<u8>, 
-    own_poet_pub_key: &String)
+    poet_pub_key: &String)
     -> bool {
     // 1. Validator registry check
     // 4. Match Local Mean against the locally computed
@@ -45,16 +45,11 @@ pub fn check_consensus(
     //    SHA256 hash of block using OPK
 
     //\\ 2. Signature validation using sender's PPK
-    let block_signer = poet2_util::to_hex_string(&Vec::from(block.signer_id.clone()));
-    let validator = poet2_util::to_hex_string(&validator_id.to_vec());
-    let poet_pub_key = validator_registry_view::get_poet_pubkey_for_validator_id(
-                           &block_signer,
-                           &block.block_id,
-                           service).unwrap();
 
-    if !verify_wait_certificate(block, service, &poet_pub_key) {
+    // Commenting out until registry TP is merged. Causes failure in LR.
+    /*if !verify_wait_certificate(block, service, &poet_pub_key){
         return false;
-    }
+    }*/
 
     // 3. k-test
     /*if validtor_has_claimed_block_limit( service ) {
@@ -67,6 +62,8 @@ pub fn check_consensus(
     }*/
 
     // 7. c-test
+    let block_signer = poet2_util::to_hex_string(&Vec::from(block.signer_id.clone()));
+    let validator = poet2_util::to_hex_string(&validator_id.to_vec());
     
     if validator == block_signer && validator_is_claiming_too_early( block, service){
         return false;

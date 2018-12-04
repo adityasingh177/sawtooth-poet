@@ -39,9 +39,6 @@ pub mod enclave_sgx;
 pub mod database;
 pub mod poet2_util;
 pub mod settings_view;
-pub mod validator_registry_validator_info;
-pub mod validator_registry_signup_info;
-pub mod validator_registry_view;
 
 use engine::Poet2Engine;
 use sawtooth_sdk::consensus::zmq_driver::ZmqDriver;
