@@ -21,9 +21,8 @@ use service::Poet2Service;
 use std::error;
 use std::fmt;
 use sawtooth_sdk::consensus::engine::BlockId;
-use validator_registry_tp::validator_registry_validator_info;
-use validator_registry_tp::validator_registry_signup_info::*;
-use serde_json;
+use validator_registry_validator_info;
+use validator_registry_signup_info::*;
 
 #[derive(Debug, Clone)]
 pub struct VRVStateError;
